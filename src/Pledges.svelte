@@ -5,12 +5,30 @@
 		<div class="pledges__title">
 			Залоги
 		</div>
-		<div class="pledges__subtitle">
-			<pledges-base-status status={'info'}>
-				<span>Залоги</span>
-			</pledges-base-status>
-		</div>
-		{#if pledges.items.length}
+		{#if !pledges.items.length}
+			<div class="pledges__subtitle">
+				{#if pledges.source.state === 'PROGRESS'}
+					<pledges-base-status status={'info'}>
+						<pledges-content-line
+							title="Результат: " 
+							value="У источника данных в настоящий момент профилактические работы, и нам не удалось получить сведения о нахождении автомобиля в залоге. В течение суток мы будем пытаться получить информацию и, в случае успеха, добавим ее в отчет."
+						/>
+					</pledges-base-status>
+				{:else}
+					<pledges-base-status status={'neutral'}>
+						<pledges-content-line
+							title="Результат: " 
+							value="Нет ответа от источника.  Мы пытались получить данные, но источник так и не ответил."
+						/>
+					</pledges-base-status>
+				{/if}
+			</div>
+		{:else}
+			<div class="pledges__subtitle">
+				<pledges-base-status status={ inPledge ? 'danger' : 'neutral'}>
+					<span>Количество залогов: {pledges.items.length}</span>
+				</pledges-base-status>
+			</div>
 			<div class="pldeges__table">
 				<div class="pledges__table-head">
 					<pledges-content-line
@@ -133,14 +151,6 @@
 		};
 
 	$: inPledge = pledges.items.some((item) => item.in_pledge);
-	let pledgeStatus: 'neutral' | 'danger' | 'progress' | 'error';
-	$: { 
-		if (pledges.items.length) {
-			pledgeStatus = inPledge ? 'danger' : 'neutral';
-		} else {
-			pledgeStatus = pledges.source.state === 'PROGRESS' ? 'progress' : 'error';
-		}
-	};
 </script>
 
 <style>
