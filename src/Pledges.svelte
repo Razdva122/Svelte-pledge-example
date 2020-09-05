@@ -8,17 +8,19 @@
 		{#if !pledges.items.length}
 			<div class="pledges__subtitle">
 				{#if pledges.source.state === 'PROGRESS'}
-					<pledges-base-status status={'info'}>
+					<pledges-base-status status='info'>
 						<pledges-content-line
 							title="Результат: " 
 							value="У источника данных в настоящий момент профилактические работы, и нам не удалось получить сведения о нахождении автомобиля в залоге. В течение суток мы будем пытаться получить информацию и, в случае успеха, добавим ее в отчет."
+							close="{true}"
 						/>
 					</pledges-base-status>
 				{:else}
-					<pledges-base-status status={'neutral'}>
+					<pledges-base-status status='neutral'>
 						<pledges-content-line
 							title="Результат: " 
 							value="Нет ответа от источника.  Мы пытались получить данные, но источник так и не ответил."
+							close="{true}"
 						/>
 					</pledges-base-status>
 				{/if}

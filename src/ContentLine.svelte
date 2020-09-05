@@ -1,7 +1,7 @@
 <svelte:options tag="pledges-content-line" immutable={true} />
 
 <div class:content-line--close="{close}" class="content-line">
-  <span class="content-line__title">{title}</span>
+  <span class="content-line__title" class:content-line__title--close="{close}">{title}</span>
   <span class="content-line__value" class:content-line__value--danger="{danger}">
     {value}
   </span>
@@ -38,6 +38,10 @@
   }
 
   .content-line--close {
+    width: auto;
+  }
+
+  .content-line__title--close {
     width: auto;
   }
 </style>
