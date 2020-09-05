@@ -1,3 +1,5 @@
+<svelte:options tag="pledges-content-line" immutable={true} />
+
 <div class:content-line--close="{close}" class="content-line">
   <span class="content-line__title">{title}</span>
   <span class="content-line__value" class:content-line__value--danger="{danger}">
@@ -6,8 +8,8 @@
 </div>
 
 <script lang="ts">
-  export let close: boolean;
-  export let danger: boolean;
+  export let close: boolean = false;
+  export let danger: boolean = false;
   export let title: string;
   export let value: string;
 </script>

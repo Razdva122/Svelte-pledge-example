@@ -1,3 +1,5 @@
+<svelte:options tag="pledges-base-status" immutable={true} />
+
 <div class="base-status">
   <div class="base-status-pointer base-status-pointer--{status}">
   </div>

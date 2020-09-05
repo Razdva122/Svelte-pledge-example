@@ -6,13 +6,18 @@
 
 	<title>Svelte app</title>
 
-	<link rel='icon' type='image/png' href='/favicon.png'>
-	<link rel='stylesheet' href='/global.css'>
-	<link rel='stylesheet' href='/build/bundle.css'>
+	<link rel='stylesheet' href='global.css'>
+	<link rel='stylesheet' href='build/bundle.css'>
 
-	<script defer src='/build/bundle.js'></script>
+	<script defer src='build/bundle.js'></script>
 </head>
 
 <body>
+	<pledges-block></pledges-block>
+	<pledges-content-line
+		title="pledges-content-line outside:" 
+		value="Working"
+		danger="true"
+	/>
 </body>
 </html>

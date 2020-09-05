@@ -1,3 +1,5 @@
+<svelte:options tag="pledges-divider" immutable={true} />
+
 <hr class="divider">
 
 <style>

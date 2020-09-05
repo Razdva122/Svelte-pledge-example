@@ -1,27 +1,29 @@
+<svelte:options tag="pledges-block" immutable={true} />
+
 <main>
 	<div class="pledges">
 		<div class="pledges__title">
 			Залоги
 		</div>
 		<div class="pledges__subtitle">
-			<BaseStatus status={'danger'}>
+			<pledges-base-status status={'info'}>
 				<span>Залоги</span>
-			</BaseStatus>
+			</pledges-base-status>
 		</div>
 		{#if pledges.items.length}
 			<div class="pldeges__table">
 				<div class="pledges__table-head">
-					<ContentLine 
+					<pledges-content-line
 						title="Результат: " 
 						value="{inPledge ? 'Автомобиль в залоге' : 'Автомобиль не в залоге'}"
 						danger="{inPledge}"
 					/>
-					<ContentLine 
+					<pledges-content-line
 						title="Дата проверки: " 
 						value="{pledges.check_date}"
 					/>
 				</div>
-				<Divider/>
+				<pledges-divider/>
 				<div class="pledges__table-body">
 					{#each pledges.items as pledge, id}
 						<div>
@@ -29,47 +31,47 @@
 								{id + 1}
 							</div>
 							<div class="pledges__table-body-line">
-								<ContentLine 
+								<pledges-content-line
 									title="Номер залога: " 
 									value="{pledge.plegde_id}"
 								/>
-								<ContentLine 
+								<pledges-content-line
 									title="Дата возникновения: " 
 									value="{pledge.date.start}"
 								/>
 							</div>
 							<div class="pledges__table-body-line">
-								<ContentLine 
+								<pledges-content-line
 									title="Статус: " 
 									value="{pledge.in_pledge ? 'В залоге' : 'Вышла из залога'}"
 								/>
-								<ContentLine 
+								<pledges-content-line
 									title="Дата исключения: " 
 									value="{pledge.date.end}"
 								/>
 							</div>
 							<div class="pledges__table-body-line">
-								<ContentLine 
+								<pledges-content-line
 									title="Тип залогодателя: " 
 									value="{pledge.pledger}"
 								/>
-								<ContentLine 
+								<pledges-content-line
 									title="Тип залогодержателя: " 
 									value="{pledge.pledgee}"
 								/>
 							</div>
 							<div class="pledges__table-body-line">
-								<ContentLine 
+								<pledges-content-line
 									title="ФИО: " 
 									value="{pledge.pledger_name}"
 								/>
-								<ContentLine 
+								<pledges-content-line
 									title="Наименование: " 
 									value="{pledge.pledgee_name}"
 								/>
 							</div>
 						</div>
-						<Divider/>
+						<pledges-divider/>
 					{/each}
 				</div>
 			</div>
@@ -96,9 +98,49 @@
 
 	import type { IPledges } from './main';
 
-	export let pledges: IPledges;
+	export let pledges: IPledges = {
+			source: {
+				_id: 'pledge',
+				state: 'OK'
+			},
+			check_date: '26.05.2020',
+			items: [
+				{
+					plegde_id: '2019-004-133594-105',
+					in_pledge: true,
+					pledger: 'Физическое лицо',
+					pledger_name: 'Скрыто ч.3 статьи 103.3',
+					date: {
+						start: '21.10.2019',
+						end: 'по настоящее время',
+					},
+					pledgee: 'Юридическое лицо',
+					pledgee_name: 'Скрыто ч.3 статьи 103.3',
+				},
+				{
+					plegde_id: '2019-004-133594-105',
+					in_pledge: true,
+					pledger: 'Физическое лицо',
+					pledger_name: 'Скрыто ч.3 статьи 103.3',
+					date: {
+						start: '21.10.2019',
+						end: 'по настоящее время',
+					},
+					pledgee: 'Юридическое лицо',
+					pledgee_name: 'Скрыто ч.3 статьи 103.3',
+				},
+			],
+		};
 
 	$: inPledge = pledges.items.some((item) => item.in_pledge);
+	let pledgeStatus: 'neutral' | 'danger' | 'progress' | 'error';
+	$: { 
+		if (pledges.items.length) {
+			pledgeStatus = inPledge ? 'danger' : 'neutral';
+		} else {
+			pledgeStatus = pledges.source.state === 'PROGRESS' ? 'progress' : 'error';
+		}
+	};
 </script>
 
 <style>
@@ -136,6 +178,10 @@
 
 	.pledges__table-body-el-index {
 		margin-bottom: 20px;
+	}
+
+	pledges-content-line {
+		width: 100%;
 	}
 
 	.pledges__table-body-line {
