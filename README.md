@@ -6,6 +6,8 @@ This is a project is block of pledges from [Profi Avtocod](https://profi.avtocod
 
 Demonstration: [GitHubPages](https://razdva122.github.io/Svelte-pledge-example/)
 
+Presentation: [Slides.com](https://slides.com/tylerlolololol/svelte)
+
 ## Information
 
 Pledges Block it's **isolated web-component**.
